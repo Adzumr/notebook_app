@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "792003398181",
+    "firebase_url": "https://my-weather-c3d23.firebaseio.com",
+    "project_id": "my-weather-c3d23",
+    "storage_bucket": "my-weather-c3d23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792003398181:android:919df8f0b2da8e7cfecdcc",
+        "android_client_info": {
+          "package_name": "com.adzumr.notebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792003398181-sh2jmj9aeklc1lut23vjb9p6aef0mj8j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkPAbLQYbwdxomJGI8Abnv2_-GhZP56eg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792003398181-sh2jmj9aeklc1lut23vjb9p6aef0mj8j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "792003398181-vaq2lh72jm85burcn92viqbepq90mpks.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mapExam"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
