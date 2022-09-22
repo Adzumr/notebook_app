@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:notebook/main.dart';
+import 'package:notebook/widgets/toast.dart';
 import 'package:sizer/sizer.dart';
 
 import '../widgets/elevated_button.dart';
@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,39 +44,57 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 style: appStyles.headerFont,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    isLogin ? 'Welcome back' : "Create a free account",
-                    textAlign: TextAlign.left,
-                    style: appStyles.titleFont,
-                  ),
-                  SizedBox(height: 1.h),
-                  Text(
-                    "Create and share unlimited notes with your friends.",
-                    textAlign: TextAlign.left,
-                    style: appStyles.bodyFont,
-                  ),
-                  SizedBox(height: 5.h),
-                  TextFormField(
-                    validator: EmailValidator(errorText: "Invalid Email"),
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                        hintText: 'Type your email here',
-                        labelText: "Email Address"),
-                    onChanged: (value) {},
-                  ),
-                  SizedBox(height: 2.h),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                      labelText: "Password",
-                      hintText: 'Type your password',
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      isLogin ? 'Welcome back' : "Create a free account",
+                      textAlign: TextAlign.left,
+                      style: appStyles.titleFont,
                     ),
-                    onTap: () {},
-                  ),
-                ],
+                    SizedBox(height: 1.h),
+                    Text(
+                      "Create and share unlimited notes with your friends.",
+                      textAlign: TextAlign.left,
+                      style: appStyles.bodyFont,
+                    ),
+                    SizedBox(height: 5.h),
+                    TextFormField(
+                      validator: (value) {
+                        if (value!.trim().length < 3) {
+                          return "email too short";
+                        } else if (!RegExp(
+                                r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                            .hasMatch(value)) {
+                          return "Please enter a valid email address";
+                        }
+                        return null;
+                      },
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                          hintText: 'Type your email here',
+                          labelText: "Email Address"),
+                      onChanged: (value) {},
+                    ),
+                    SizedBox(height: 2.h),
+                    TextFormField(
+                      controller: _passwordController,
+                      validator: (value) {
+                        if (value!.length < 6) {
+                          return "password too short";
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(
+                        labelText: "Password",
+                        hintText: 'Type your password',
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,17 +106,31 @@ class _LoginScreenState extends State<LoginScreen> {
                       : AppElevatedButton(
                           title: isLogin ? 'Sign in' : "Sign up",
                           onPressed: () {
-                            isLogin
-                                ? api.signIn(
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                    context: context,
-                                  )
-                                : api.signUp(
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                    context: context,
-                                  );
+                            if (_formKey.currentState!.validate()) {
+                              try {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                isLogin
+                                    ? api.signIn(
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        context: context,
+                                      )
+                                    : api.signUp(
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                        context: context,
+                                      );
+                              } catch (e) {
+                                showToast("$e", context);
+                              } finally {
+                                // FocusManager.instance.primaryFocus?.unfocus();
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              }
+                            }
                           },
                         ),
                   SizedBox(height: 1.h),
