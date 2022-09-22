@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notebook/screens/login_screen.dart';
 import 'package:notebook/widgets/toast.dart';
 
 import '../home_screen.dart';
@@ -14,6 +15,16 @@ class API {
       .collection("Notebook")
       .doc(currentUser.currentUser!.uid)
       .collection("Notes");
+  Future signOut(BuildContext? context) async {
+    await currentUser.signOut().then((value) {
+      showToast("LogOut", context);
+      Navigator.pushNamedAndRemoveUntil(
+        context!,
+        LoginScreen.idScreen,
+        (route) => false,
+      );
+    });
+  }
 
   Future deleteNote({
     String? id,

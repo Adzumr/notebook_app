@@ -23,6 +23,23 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            Center(
+              child: InkWell(
+                onTap: () async {
+                  api.signOut(context);
+                },
+                child: Text(
+                  "Logout",
+                  style: appStyles.smallBodyFont.copyWith(
+                    color: appColors.whiteColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 5.w)
+          ],
           title: Text(
             "Notes",
             style: appStyles.titleFont.copyWith(color: appColors.whiteColor),
