@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notebook/main.dart';
-import 'package:notebook/widgets/toast.dart';
+import 'package:notebook/screens/add_screen.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -69,7 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         );
                 } else {
-                  return const Text("No data");
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
                 }
               },
             ),
@@ -77,9 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            showToast(
-              "Note Added",
+            Navigator.pushNamedAndRemoveUntil(
               context,
+              AddNoteScreen.idScreen,
+              (route) => false,
             );
           },
           tooltip: 'Add Note',
@@ -130,8 +133,16 @@ class NoteTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(documentSnapshot!["title"]),
-      subtitle: Text(documentSnapshot!["content"]),
+      title: Text(
+        documentSnapshot!["title"],
+        style: appStyles.bodyFont.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text(
+        documentSnapshot!["content"],
+        style: appStyles.smallBodyFont,
+      ),
     );
   }
 }

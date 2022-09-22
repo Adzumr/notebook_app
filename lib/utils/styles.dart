@@ -27,7 +27,9 @@ class AppStyles {
     borderRadius: BorderRadius.circular(15),
     borderSide: BorderSide(
       color: appColors.blueColor,
+      
     ),
+    
     gapPadding: 10.sp,
   );
   final textButtonStyle = TextButtonThemeData(

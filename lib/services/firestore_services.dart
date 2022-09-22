@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:notebook/screens/login_screen.dart';
 import 'package:notebook/widgets/toast.dart';
 
-import '../home_screen.dart';
+import '../screens/home_screen.dart';
 
 final currentUser = FirebaseAuth.instance;
 

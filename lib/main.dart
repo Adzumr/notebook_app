@@ -1,13 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:notebook/screens/add_screen.dart';
 import 'package:notebook/screens/login_screen.dart';
 import 'package:notebook/services/firestore_services.dart';
 import 'package:notebook/utils/colors.dart';
 import 'package:notebook/utils/styles.dart';
 import 'package:sizer/sizer.dart';
 
-import 'home_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
             bodyText2: appStyles.bodyFont,
           ),
           inputDecorationTheme: InputDecorationTheme(
-            contentPadding: EdgeInsets.symmetric(horizontal: 10.sp),
+            contentPadding: EdgeInsets.all(10.sp),
             border: appStyles.appBorderStyle,
             enabledBorder: appStyles.appBorderStyle,
             disabledBorder: appStyles.appBorderStyle,
@@ -53,7 +54,6 @@ class MyApp extends StatelessWidget {
           colorScheme:
               ColorScheme.fromSwatch().copyWith(secondary: appColors.blueColor),
         ),
-        // home:   MyHomePage(),
         initialRoute:
             //  FirebaseAuth.instance.currentUser != null
             //     ? HomeScreen.idScreen
@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
         routes: {
           HomeScreen.idScreen: (context) => const HomeScreen(),
           LoginScreen.idScreen: (context) => const LoginScreen(),
+          AddNoteScreen.idScreen: (context) => const AddNoteScreen(),
         },
       );
     });
