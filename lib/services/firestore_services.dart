@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notebook/screens/login_screen.dart';
-import 'package:notebook/widgets/toast.dart';
 
 import '../screens/home_screen.dart';
 
@@ -15,9 +14,10 @@ class API {
       .collection("Notebook")
       .doc(currentUser.currentUser!.uid)
       .collection("Notes");
+
   Future signOut(BuildContext? context) async {
     await currentUser.signOut().then((value) {
-      showToast("LogOut", context);
+      log("LogOut");
       Navigator.pushNamedAndRemoveUntil(
         context!,
         LoginScreen.idScreen,
@@ -32,10 +32,7 @@ class API {
   }) async {
     try {
       await collectionReference.doc(id).delete().then((value) {
-        showToast(
-          "Note Deleted",
-          context,
-        );
+        log("Note Deleted");
         Navigator.pushNamedAndRemoveUntil(
           context!,
           HomeScreen.idScreen,
@@ -59,10 +56,7 @@ class API {
         "title": "$title",
         "content": "$content",
       }).then((value) {
-        showToast(
-          "Note Added",
-          context,
-        );
+        log("Note Added");
         Navigator.pushNamedAndRemoveUntil(
           context!,
           HomeScreen.idScreen,

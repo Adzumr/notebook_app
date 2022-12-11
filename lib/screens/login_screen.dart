@@ -1,7 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:notebook/main.dart';
-import 'package:notebook/widgets/toast.dart';
 import 'package:sizer/sizer.dart';
 
 import '../widgets/elevated_button.dart';
@@ -120,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     context: context,
                                   );
                           } catch (e) {
-                            showToast("$e", context);
+                            log("$e");
                           } finally {
                             // FocusManager.instance.primaryFocus?.unfocus();
                             setState(() {

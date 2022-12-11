@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:notebook/screens/home_screen.dart';
-import 'package:notebook/widgets/toast.dart';
 import 'package:sizer/sizer.dart';
 
 import '../main.dart';
@@ -73,10 +72,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
               context,
               HomeScreen.idScreen,
               (route) => false,
-            );
-            showToast(
-              "Note Saved",
-              context,
             );
           });
         },
